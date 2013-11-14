@@ -1,0 +1,5 @@
+/home/chelsea/Documents/GraphicsProjects/p5/build/application/CMakeFiles/application.dir
+/home/chelsea/Documents/GraphicsProjects/p5/build/math/CMakeFiles/math.dir
+/home/chelsea/Documents/GraphicsProjects/p5/build/p5/CMakeFiles/p5.dir
+/home/chelsea/Documents/GraphicsProjects/p5/build/scene/CMakeFiles/scene.dir
+/home/chelsea/Documents/GraphicsProjects/p5/build/tinyxml/CMakeFiles/tinyxml.dir
