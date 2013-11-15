@@ -23,9 +23,9 @@ Vector3 TriangleBody::step_orientation( real_t dt, real_t motion_damping )
     return Vector3::Zero();
 }
 
-void TriangleBody::apply_force( const Vector3& f, const Vector3& offset )
+void TriangleBody::apply_force( const Vector3& f, const Vector3& offset, const State &state )
 {
-    return;
+    return ;
 }
 
 }

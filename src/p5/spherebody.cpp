@@ -28,7 +28,7 @@ Vector3 SphereBody::step_position( real_t dt, real_t motion_damping )
     // scheme
     // TODO return the delta in position dt in the future
 
-    return Vector3::Zero();
+    return force / mass;
 }
 
 Vector3 SphereBody::step_orientation( real_t dt, real_t motion_damping )
@@ -41,12 +41,22 @@ Vector3 SphereBody::step_orientation( real_t dt, real_t motion_damping )
     // vec.y = rotation along y axis
     // vec.z = rotation along z axis
 
-    return Vector3::Zero();
+    return torque / (2.f / 5 * mass * radius *radius);
 }
 
-void SphereBody::apply_force( const Vector3& f, const Vector3& offset )
+void SphereBody::apply_force( const Vector3& f, const Vector3& offset, const State &state )
 {
     // TODO apply force/torque to sphere
+	Vector3 offset_center = Vector3::Zero();
+	offset_center = offset - position;
+	if (offset_center == Vector3::Zero() || (offset_center = normalize(offset_center)) == normalize(f)) {
+		force = f;
+		torque = Vector3::Zero();
+		return ;
+	}
+
+	force = dot(f, offset_center) * offset_center;
+	torque = f - force;
 }
 
 }

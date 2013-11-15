@@ -42,6 +42,11 @@ private:
     typedef std::vector< PlaneBody* > PlaneList;
     typedef std::vector< TriangleBody* > TriangleList;
 
+    Derivative take_derivative(const State &init_state, const Derivative &init_derivative,
+    		Body *body_ptr, real_t dt) const;
+    void acceleration(const State &state, Body *body_ptr, const real_t dt, Derivative &a) const;
+    void rk4_integrate(State &state, Body *body_ptr, const real_t dt) const;
+
     SpringList springs;
     SphereList spheres;
     PlaneList planes;

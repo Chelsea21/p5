@@ -419,9 +419,11 @@ static void parse_spring( BodyMap& bmap, const TiXmlElement* elem, Spring* sprin
     parse_elem( elem, true, STR_EQUILIBRIUM, &spring->equilibrium );
     parse_elem( elem, true, STR_BODY1, &id );
     spring->body1 = bmap[id];
+    spring->body1->spring_ptrs.push_back(spring);
     parse_elem( elem, false, STR_OFFSET1, &spring->body1_offset );
     parse_elem( elem, true, STR_BODY2, &id );
     spring->body2 = bmap[id];
+    spring->body2->spring_ptrs.push_back(spring);
     parse_elem( elem, false, STR_OFFSET2, &spring->body2_offset );
     parse_elem( elem, false, STR_DAMPING, &spring->damping );
 }
