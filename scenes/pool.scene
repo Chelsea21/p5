@@ -21,105 +21,105 @@
         <color r="1.0" g="1.0" b="1.0"/>
     </point_light>
 
-    <material name="1" texture="images/Pool/Ball1.png">
+    <material name="1" texture="../images/Pool/Ball1.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="2" texture="images/Pool/Ball2.png">
+    <material name="2" texture="../images/Pool/Ball2.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="3" texture="images/Pool/Ball3.png">
+    <material name="3" texture="../images/Pool/Ball3.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="4" texture="images/Pool/Ball4.png">
+    <material name="4" texture="../images/Pool/Ball4.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="5" texture="images/Pool/Ball5.png">
+    <material name="5" texture="../images/Pool/Ball5.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="6" texture="images/Pool/Ball6.png">
+    <material name="6" texture="../images/Pool/Ball6.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="7" texture="images/Pool/Ball7.png">
+    <material name="7" texture="../images/Pool/Ball7.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="8" texture="images/Pool/Ball8.png">
+    <material name="8" texture="../images/Pool/Ball8.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="9" texture="images/Pool/Ball9.png">
+    <material name="9" texture="../images/Pool/Ball9.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="10" texture="images/Pool/Ball10.png">
+    <material name="10" texture="../images/Pool/Ball10.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="11" texture="images/Pool/Ball11.png">
+    <material name="11" texture="../images/Pool/Ball11.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="12" texture="images/Pool/Ball12.png">
+    <material name="12" texture="../images/Pool/Ball12.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="13" texture="images/Pool/Ball13.png">
+    <material name="13" texture="../images/Pool/Ball13.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="14" texture="images/Pool/Ball14.png">
+    <material name="14" texture="../images/Pool/Ball14.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-    <material name="15" texture="images/Pool/Ball15.png">
+    <material name="15" texture="../images/Pool/Ball15.png">
         <ambient r="0.2" g="0.2" b="0.2"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="1.0" g="1.0" b="1.0"/>
@@ -295,6 +295,7 @@
         <radius v="0.0285"/>
         <body>
             <id i="1"/>
+	    <velocity x="0.0" y="0.0" z="0.0"/>
             <mass v="1.0"/>
         </body>
     </sphere>

@@ -22,7 +22,7 @@ public:
 
     Vector3 get_force(const Body* body, const State& state) const;
     Vector3 get_offset(const Body* body) const;
-    void update_offset(const Body* body, const Vector3& axis, real_t radians);
+    void update_offset(const Body* body, const Vector3& angular_position);
 };
 
 }

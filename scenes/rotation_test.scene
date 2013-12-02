@@ -20,7 +20,7 @@
     </point_light>
 
 
-    <material name="ball" texture="images/test.png">
+    <material name="ball" texture="../images/test.png">
         <ambient r="0.5" g="0.5" b="0.5"/>
         <diffuse r="0.5" g="0.5" b="0.5"/>
         <specular r="0.5" g="0.5" b="0.5"/>

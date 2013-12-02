@@ -223,7 +223,7 @@ void PhysicsApplication::handle_event( const SDL_Event& event )
             break;
         default:
             break;
-        }
+        } break;
     default:
         break;
     }

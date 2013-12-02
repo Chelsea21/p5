@@ -43,7 +43,7 @@ void Physics::step( real_t dt )
 		states[i].angular_velocity = spheres[i]->angular_velocity;
 
 		//if (i == 0)
-			//std::cout << "before: " << state.velocity << std::endl;
+			//std::cout << "before: " << states[i].position << std::endl;
 		rk4_integrate(states[i], spheres[i], dt);
 
 		//if (i == 0)
@@ -54,10 +54,14 @@ void Physics::step( real_t dt )
 		spheres[i]->position = states[i].position;
 		spheres[i]->velocity = states[i].velocity;
 		spheres[i]->angular_velocity = states[i].angular_velocity;
-		spheres[i]->orientation = normalize( Quaternion( spheres[i]->axis,
-								length(states[i].angular_position)) * spheres[i]->orientation );
+		spheres[i]->update_orientation(states[i].angular_position);
+		spheres[i]->sphere->orientation = spheres[i]->orientation;
 		spheres[i]->sphere->position = states[i].position;
-		//if (spheres[i]->spring_ptrs->)
+		for (size_t j = 0; j < spheres[i]->spring_ptrs.size(); j++) {
+			//std::cout << spheres[i]->spring_ptrs[j]->body1_offset << std::endl;
+			spheres[i]->spring_ptrs[j]->update_offset(spheres[i], states[i].angular_position);
+			//std::cout << spheres[i]->spring_ptrs[j]->body1_offset << std::endl;
+		}
 	}
 }
 
@@ -75,11 +79,11 @@ void Physics::rk4_integrate(State &state, Body *body_ptr, const real_t dt) const
 					+ d4.d_angular_velocity);
 
 	state.position += dxdt * dt;
-	//std::cout << "dvdt: " << state.velocity << "\t" << dvdt  << "\t" << dt << std::endl;
+	//std::cout << "dvdt: " << state.position << std::endl;
 	state.velocity += dvdt * dt;
 	//std::cout << "dvdt2: " << state.velocity << "\t" << dvdt  << "\t" << dt << std::endl;
 	//std::cout << state.position << "\t" << state.velocity << std::endl;
-	state.angular_position += daxdt * dt;
+	state.angular_position = daxdt * dt;
 	state.angular_velocity += davdt * dt;
 }
 
@@ -112,7 +116,7 @@ void Physics::acceleration(const State &state, Body *body_ptr, const real_t dt, 
 		body_ptr->apply_force(body_ptr->spring_ptrs[i]->get_force(body_ptr, state),
 				body_ptr->spring_ptrs[i]->get_offset(body_ptr));
 	a.d_velocity = body_ptr->step_position(dt, 0.f);
-	//std::cout << a.d_velocity << std::endl;
+
 	a.d_angular_velocity = body_ptr->step_orientation(dt, 0.f);
 }
 

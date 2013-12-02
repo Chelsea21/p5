@@ -39,12 +39,14 @@ Vector3 Spring::get_offset(const Body* body) const {
 	return (body == body1) ? body1_offset : body2_offset;
 }
 
-void Spring::update_offset(const Body* body, const Vector3& axis, real_t radians) {
+void Spring::update_offset(const Body* body, const Vector3& angular_position) {
 	Vector3* offset_ptr = (body == body1) ? &body1_offset : &body2_offset;
-	Quaternion rotate(axis, radians);
-	Matrix3 rotate_mat;
-	rotate.to_matrix(&rotate_mat);
-	*offset_ptr = rotate_mat * *offset_ptr;
+
+	Quaternion qua( normalize(angular_position), length(angular_position) );
+	Matrix3 mat;
+	qua.to_matrix(&mat);
+
+	*offset_ptr = mat * *offset_ptr;
 }
 
 }

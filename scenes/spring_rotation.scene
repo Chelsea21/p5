@@ -21,14 +21,14 @@
         <color r="1.0" g="1.0" b="1.0"/>
     </point_light>
 
-    <material name="mirror" texture="images/arrow.png">
+    <material name="mirror" texture="../images/arrow.png">
         <ambient r="0.0" g="0.0" b="0.0"/>
         <diffuse r="1.0" g="0.0" b="0.0"/>
         <specular r="1.0" g="1.0" b="1.0"/>
         <refractive_index v="0.0"/>
     </material>
 
-	<material name="wood" texture="images/wood2.png">
+	<material name="wood" texture="../images/wood2.png">
         <refractive_index v="0.0"/>
         <ambient r="0.8" g="0.8" b="0.8"/>
         <diffuse r="0.8" g="0.8" b="0.8"/>
@@ -40,7 +40,7 @@
         <radius v="1.0"/>
         <body>
             <id i="1"/>
-            <velocity x="1.0" y="0.0" z="0.0"/>
+            <velocity x="2.0" y="0.0" z="0.0"/>
             <mass v="1.0"/>
         </body>
     </sphere>

@@ -55,14 +55,21 @@ void SphereBody::apply_force( const Vector3& f, const Vector3& offset)
 		return ;
 	}
 
-	force += dot(f, offset_normal) * offset_normal;
-	torque += f - force;
-	axis = cross(torque, force);
+	Vector3 component = dot(f, offset_normal) * offset_normal;
+	force += component;
+	torque += cross(offset, f - component);
 }
 
 void SphereBody::clean_force() {
 	force = Vector3::Zero();
 	torque = Vector3::Zero();
+}
+
+void SphereBody::update_orientation(const Vector3 rotation) {
+	Quaternion qua( normalize(rotation), length(rotation) );
+
+	orientation = normalize( qua * orientation );
+
 }
 
 }
