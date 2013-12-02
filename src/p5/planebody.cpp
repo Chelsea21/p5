@@ -18,9 +18,13 @@ Vector3 PlaneBody::step_orientation( real_t dt, real_t motion_damping )
     return Vector3::Zero();
 }
 
-void PlaneBody::apply_force( const Vector3& f, const Vector3& offset, const State &state )
+void PlaneBody::apply_force( const Vector3& f, const Vector3& offset )
 {
     return ;
+}
+
+void PlaneBody::clean_force() {
+	return ;
 }
 
 }

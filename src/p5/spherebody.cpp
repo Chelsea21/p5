@@ -44,19 +44,25 @@ Vector3 SphereBody::step_orientation( real_t dt, real_t motion_damping )
     return torque / (2.f / 5 * mass * radius *radius);
 }
 
-void SphereBody::apply_force( const Vector3& f, const Vector3& offset, const State &state )
+void SphereBody::apply_force( const Vector3& f, const Vector3& offset)
 {
     // TODO apply force/torque to sphere
-	Vector3 offset_center = Vector3::Zero();
-	offset_center = offset - position;
-	if (offset_center == Vector3::Zero() || (offset_center = normalize(offset_center)) == normalize(f)) {
-		force = f;
-		torque = Vector3::Zero();
+	Vector3 offset_normal;
+	//std::cout << f << std::endl;
+	if (offset == Vector3::Zero() || (offset_normal = normalize(offset)) == normalize(f)) {
+		force += f;
+		torque += Vector3::Zero();
 		return ;
 	}
 
-	force = dot(f, offset_center) * offset_center;
-	torque = f - force;
+	force += dot(f, offset_normal) * offset_normal;
+	torque += f - force;
+	axis = cross(torque, force);
+}
+
+void SphereBody::clean_force() {
+	force = Vector3::Zero();
+	torque = Vector3::Zero();
 }
 
 }

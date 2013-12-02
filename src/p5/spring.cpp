@@ -21,6 +21,32 @@ void Spring::step( real_t dt )
     // TODO apply forces to attached bodies
 }
 
+Vector3 Spring::get_force(const Body* body, const State& state) const {
+	Vector3 displace;
+	if (body == body1)
+		displace = body1_offset + state.position -  (body2_offset + body2->position);
+	else
+		displace = body2_offset + state.position -  (body1_offset + body1->position);
+	Vector3 spring_vec = normalize(displace);
+	Vector3 equilibrium_vec = equilibrium * spring_vec;
+	displace -= equilibrium_vec;
+	Vector3 force = - constant * displace + (-damping) * dot(spring_vec, state.velocity) * spring_vec;
+
+	return force;
+}
+
+Vector3 Spring::get_offset(const Body* body) const {
+	return (body == body1) ? body1_offset : body2_offset;
+}
+
+void Spring::update_offset(const Body* body, const Vector3& axis, real_t radians) {
+	Vector3* offset_ptr = (body == body1) ? &body1_offset : &body2_offset;
+	Quaternion rotate(axis, radians);
+	Matrix3 rotate_mat;
+	rotate.to_matrix(&rotate_mat);
+	*offset_ptr = rotate_mat * *offset_ptr;
+}
+
 }
 
 

@@ -31,7 +31,7 @@ bool collides( SphereBody& body1, TriangleBody& body2, real_t collision_damping 
     // TODO detect collision. If there is one, update velocity
 	Vector3 normal = normalize(cross(body2.vertices[1] - body2.vertices[0],
 						body2.vertices[2] - body2.vertices[0]));
-	real_t distance = dot(normal, body1.position - body2.position);
+	real_t distance = std::abs(dot(normal, body1.position - body2.position));
 	if (distance <= body1.radius) {
 		Vector3 projection = body1.position - distance * normal;
 		Vector3 sphere_v = body1.velocity - body2.velocity;
@@ -89,7 +89,7 @@ bool collides( SphereBody& body1, PlaneBody& body2, real_t collision_damping )
 	real_t v_projection;
 	if (squared_length(body1.velocity) > 1e-6 &&
 			(v_projection = dot(body1.velocity, body2.normal)) < 0) {
-		real_t distance = dot(body2.normal, body1.position - body2.position);
+		real_t distance = std::abs(dot(body2.normal, body1.position - body2.position));
 		if (distance < body1.radius) {
 			body1.velocity = body1.velocity - 2 * v_projection * body2.normal;
 			body1.velocity = (1 - collision_damping) * body1.velocity;

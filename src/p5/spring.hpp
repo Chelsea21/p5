@@ -19,6 +19,10 @@ public:
     Body* body2;
     Vector3 body1_offset;
     Vector3 body2_offset;
+
+    Vector3 get_force(const Body* body, const State& state) const;
+    Vector3 get_offset(const Body* body) const;
+    void update_offset(const Body* body, const Vector3& axis, real_t radians);
 };
 
 }

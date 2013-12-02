@@ -17,7 +17,8 @@ public:
     virtual ~TriangleBody() { }
     virtual Vector3 step_position( real_t dt, real_t motion_damping );
     virtual Vector3 step_orientation( real_t dt, real_t motion_damping );
-    virtual void apply_force( const Vector3& f, const Vector3& offset, const State &state );
+    virtual void apply_force( const Vector3& f, const Vector3& offset );
+    virtual void clean_force();
 
     Vector3 vertices[3];
 };
