@@ -14,17 +14,7 @@ Physics::~Physics()
 
 void Physics::step( real_t dt )
 {
-    // TODO step the world forward by dt. Need to detect collisions, apply
-    // forces, and integrate positions and orientations.
-    //
-    // Note: put RK4 here, not in any of the physics bodies
-    //
-    // Must use the functions that you implemented
-    //
-    // Note, when you change the position/orientation of a physics object,
-    // change the position/orientation of the graphical object that represents
-    // it
-
+	// Check collision between every sphere and other objects.
 	for (size_t i = 0; i < num_spheres(); i++) {
 		for (size_t j = 0; j < num_planes(); j++)
 			collides(*spheres[i], *planes[j], collision_damping);
@@ -42,14 +32,11 @@ void Physics::step( real_t dt )
 		states[i].velocity = spheres[i]->velocity;
 		states[i].angular_velocity = spheres[i]->angular_velocity;
 
-		//if (i == 0)
-			//std::cout << "before: " << states[i].position << std::endl;
+		// Step dt using rk4 integral.
 		rk4_integrate(states[i], spheres[i], dt);
-
-		//if (i == 0)
-			//std::cout << "after: " << states[i]. << std::endl;
 	}
 
+	// Update every sphere's state after rk4 integral.
 	for (size_t i = 0; i < num_spheres(); i++) {
 		spheres[i]->position = states[i].position;
 		spheres[i]->velocity = states[i].velocity;
@@ -57,10 +44,10 @@ void Physics::step( real_t dt )
 		spheres[i]->update_orientation(states[i].angular_position);
 		spheres[i]->sphere->orientation = spheres[i]->orientation;
 		spheres[i]->sphere->position = states[i].position;
+
+		// Update the offset vector of this sphere in every spring it is attached to.
 		for (size_t j = 0; j < spheres[i]->spring_ptrs.size(); j++) {
-			//std::cout << spheres[i]->spring_ptrs[j]->body1_offset << std::endl;
 			spheres[i]->spring_ptrs[j]->update_offset(spheres[i], states[i].angular_position);
-			//std::cout << spheres[i]->spring_ptrs[j]->body1_offset << std::endl;
 		}
 	}
 }
@@ -79,16 +66,15 @@ void Physics::rk4_integrate(State &state, Body *body_ptr, const real_t dt) const
 					+ d4.d_angular_velocity);
 
 	state.position += dxdt * dt;
-	//std::cout << "dvdt: " << state.position << std::endl;
 	state.velocity += dvdt * dt;
-	//std::cout << "dvdt2: " << state.velocity << "\t" << dvdt  << "\t" << dt << std::endl;
-	//std::cout << state.position << "\t" << state.velocity << std::endl;
+	// Since angular position is the rotation radian, we don't need to add it to old value.
 	state.angular_position = daxdt * dt;
 	state.angular_velocity += davdt * dt;
 }
 
 Derivative Physics::take_derivative(const State &init_state,
 		const Derivative &init_derivative, Body *body_ptr, real_t dt) const {
+	// Make a dt step.
 	State update_state;
 	update_state.position = init_state.position + init_derivative.d_position * dt;
 	update_state.velocity = init_state.velocity + init_derivative.d_velocity * dt;
@@ -100,6 +86,8 @@ Derivative Physics::take_derivative(const State &init_state,
 	Derivative result;
 	result.d_position = update_state.velocity;
 	result.d_angular_position = update_state.angular_velocity;
+
+	// Compute the new linear and angular acceleration from the new force and torque.
 	acceleration(update_state, body_ptr, dt, result);
 
 	return result;
@@ -107,16 +95,19 @@ Derivative Physics::take_derivative(const State &init_state,
 
 void Physics::acceleration(const State &state, Body *body_ptr, const real_t dt, Derivative &a) const {
 	(void) dt;
+	// Clean the force from last iteration.
 	body_ptr->clean_force();
-	body_ptr->apply_force(gravity, Vector3::Zero());
-	//if (state.velocity.x > 0)
-		//std::cout << "here" << std::endl;
 
+	// Apply gravity to its mass center.
+	body_ptr->apply_force(gravity, Vector3::Zero());
+
+	// Apply spring's force.
 	for (size_t i = 0; i < body_ptr->spring_ptrs.size(); i++)
 		body_ptr->apply_force(body_ptr->spring_ptrs[i]->get_force(body_ptr, state),
 				body_ptr->spring_ptrs[i]->get_offset(body_ptr));
-	a.d_velocity = body_ptr->step_position(dt, 0.f);
 
+	// Update linear and angular acceleration.
+	a.d_velocity = body_ptr->step_position(dt, 0.f);
 	a.d_angular_velocity = body_ptr->step_orientation(dt, 0.f);
 }
 

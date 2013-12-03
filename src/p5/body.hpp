@@ -39,6 +39,8 @@ public:
     Vector3 velocity;
     Vector3 angular_velocity;
 
+    // Use vector to store the pointers of springs. So we can
+    // update offset in spring instances easily.
     std::vector<Spring*> spring_ptrs;
 
     Body() : spring_ptrs(std::vector<Spring*>()) { }
@@ -46,6 +48,8 @@ public:
     virtual Vector3 step_position( real_t dt, real_t motion_damping ) = 0;
     virtual Vector3 step_orientation( real_t dt, real_t motion_damping ) = 0;
     virtual void apply_force( const Vector3& f, const Vector3& offset ) = 0;
+
+    // Clean force before applying force and getting acceleration in every integral step.
     virtual void clean_force() = 0;
 };
 

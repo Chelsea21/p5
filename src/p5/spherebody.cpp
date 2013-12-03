@@ -23,40 +23,37 @@ SphereBody::SphereBody( Sphere* geom )
 
 Vector3 SphereBody::step_position( real_t dt, real_t motion_damping )
 {
-    // Note: This function is here as a hint for an approach to take towards
-    // programming RK4, you should add more functions to help you or change the
-    // scheme
-    // TODO return the delta in position dt in the future
+    (void) dt;
+    (void) motion_damping;
 
+    // Compute linear acceleration using f = ma.
     return force / mass;
 }
 
 Vector3 SphereBody::step_orientation( real_t dt, real_t motion_damping )
 {
-    // Note: This function is here as a hint for an approach to take towards
-    // programming RK4, you should add more functions to help you or change the
-    // scheme
-    // TODO return the delta in orientation dt in the future
-    // vec.x = rotation along x axis
-    // vec.y = rotation along y axis
-    // vec.z = rotation along z axis
+	(void) dt;
+	(void) motion_damping;
 
+	// Compute angular acceleration using alpha = torque / I; I = (2 / 5) * mr^2.
     return torque / (2.f / 5 * mass * radius *radius);
 }
 
 void SphereBody::apply_force( const Vector3& f, const Vector3& offset)
 {
-    // TODO apply force/torque to sphere
 	Vector3 offset_normal;
-	//std::cout << f << std::endl;
+
+	// Torque equals zeor, if the force is applies to the mass center.
 	if (offset == Vector3::Zero() || (offset_normal = normalize(offset)) == normalize(f)) {
 		force += f;
 		torque += Vector3::Zero();
 		return ;
 	}
 
+	// Split the force into linear and angular direction.
 	Vector3 component = dot(f, offset_normal) * offset_normal;
 	force += component;
+	// Compute torque.
 	torque += cross(offset, f - component);
 }
 
@@ -66,8 +63,9 @@ void SphereBody::clean_force() {
 }
 
 void SphereBody::update_orientation(const Vector3 rotation) {
+	// The rotation vector is computed from angular velocity.
+	// The rotation axis is the direction of the angular velocity.
 	Quaternion qua( normalize(rotation), length(rotation) );
-
 	orientation = normalize( qua * orientation );
 
 }
